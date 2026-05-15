@@ -30,7 +30,9 @@ public interface CuentaBancariaApi {
     @ApiResponse(responseCode = "201", description = "Cuenta bancaria creada correctamente",
             headers = @Header(name = "Location", description = "URI de la cuenta bancaria creada"),
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CuentaBancariaResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida",
+    @ApiResponse(responseCode = "400", description = "Solicitud invalida",
+            content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
+    @ApiResponse(responseCode = "404", description = "Cliente no encontrado",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
     @ApiResponse(responseCode = "500", description = "Error interno del servidor",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
@@ -44,7 +46,7 @@ public interface CuentaBancariaApi {
     @Operation(summary = "Actualizar saldo de cuenta bancaria", description = "Actualiza el saldo total de una cuenta bancaria existente.")
     @ApiResponse(responseCode = "200", description = "Cuenta bancaria actualizada correctamente",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CuentaBancariaResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida",
+    @ApiResponse(responseCode = "400", description = "Solicitud invalida",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
     @ApiResponse(responseCode = "404", description = "Cuenta bancaria no encontrada",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))

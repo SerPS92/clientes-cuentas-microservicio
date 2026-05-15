@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,21 +21,38 @@ public class ClientePersistenceAdapter implements ClienteRepositoryPort {
 
     @Override
     public Page<Cliente> findAll(Pageable pageable) {
-        return clienteJpaRepository.findAll(pageable);
+        Page<Cliente> page = clienteJpaRepository.findAll(pageable);
+        loadCuentas(page);
+        return page;
     }
 
     @Override
     public Optional<Cliente> findByDni(String dni) {
-        return clienteJpaRepository.findById(dni);
+        return clienteJpaRepository.findByDniWithCuentas(dni);
     }
 
     @Override
     public Page<Cliente> findClientesMayoresDeEdad(LocalDate fechaLimite, Pageable pageable) {
-        return clienteJpaRepository.findClientesMayoresDeEdad(fechaLimite, pageable);
+        Page<Cliente> page = clienteJpaRepository.findClientesMayoresDeEdad(fechaLimite, pageable);
+        loadCuentas(page);
+        return page;
     }
 
     @Override
     public Page<Cliente> findClientesConTotalCuentasSuperiorA(BigDecimal cantidad, Pageable pageable) {
-        return clienteJpaRepository.findClientesConTotalCuentasSuperiorA(cantidad, pageable);
+        Page<Cliente> page = clienteJpaRepository.findClientesConTotalCuentasSuperiorA(cantidad, pageable);
+        loadCuentas(page);
+        return page;
+    }
+
+    private void loadCuentas(Page<Cliente> page) {
+        List<String> dnis = page.getContent().stream()
+                .map(Cliente::getDni)
+                .toList();
+
+        if (!dnis.isEmpty()) {
+            // Carga explícitamente la relación lazy para evitar LazyInitializationException con open-in-view=false.
+            clienteJpaRepository.findAllWithCuentasByDniIn(dnis);
+        }
     }
 }
