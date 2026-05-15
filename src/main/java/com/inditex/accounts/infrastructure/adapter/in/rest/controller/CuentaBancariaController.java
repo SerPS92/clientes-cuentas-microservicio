@@ -24,26 +24,25 @@ public class CuentaBancariaController implements CuentaBancariaApi {
 
     @Override
     public ResponseEntity<CuentaBancariaResponse> createCuentaBancaria(CreateCuentaBancariaRequest request) {
-        return cuentaBancariaUseCase.createCuentaBancaria(
-                        request.dniCliente(),
-                        request.tipoCuenta(),
-                        request.total())
-                .map(cuentaBancariaRestMapper::toResponse)
-                .map(response -> {
-                    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                            .path("/{id}")
-                            .buildAndExpand(response.id())
-                            .toUri();
-                    return ResponseEntity.created(location).body(response);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        CuentaBancariaResponse response = cuentaBancariaRestMapper.toResponse(cuentaBancariaUseCase.createCuentaBancaria(
+                request.dniCliente(),
+                request.tipoCuenta(),
+                request.total()
+        ));
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     @Override
     public ResponseEntity<CuentaBancariaResponse> updateCuentaBancariaTotal(Long idCuenta, UpdateCuentaBancariaTotalRequest request) {
-        return cuentaBancariaUseCase.updateCuentaBancariaTotal(idCuenta, request.total())
-                .map(cuentaBancariaRestMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        CuentaBancariaResponse response = cuentaBancariaRestMapper.toResponse(
+                cuentaBancariaUseCase.updateCuentaBancariaTotal(idCuenta, request.total())
+        );
+        return ResponseEntity.ok(response);
     }
 }

@@ -43,9 +43,7 @@ public class ClienteController implements ClienteApi {
 
     @Override
     public ResponseEntity<ClienteResponse> getClienteByDni(String dni) {
-        return clienteUseCase.getClienteByDni(dni)
-                .map(clienteRestMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Cliente cliente = clienteUseCase.getClienteByDni(dni);
+        return ResponseEntity.ok(clienteRestMapper.toResponse(cliente));
     }
 }

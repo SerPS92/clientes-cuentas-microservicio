@@ -2,6 +2,7 @@ package com.inditex.accounts.application.service;
 
 import com.inditex.accounts.application.port.in.ClienteUseCase;
 import com.inditex.accounts.application.port.out.ClienteRepositoryPort;
+import com.inditex.accounts.domain.exception.ClienteNotFoundException;
 import com.inditex.accounts.domain.model.Cliente;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +37,8 @@ public class ClienteService implements ClienteUseCase {
     }
 
     @Override
-    public Optional<Cliente> getClienteByDni(String dni) {
-        return clienteRepositoryPort.findByDni(dni);
+    public Cliente getClienteByDni(String dni) {
+        return clienteRepositoryPort.findByDni(dni)
+                .orElseThrow(() -> new ClienteNotFoundException(dni));
     }
 }
