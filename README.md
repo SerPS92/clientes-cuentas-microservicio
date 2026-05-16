@@ -143,7 +143,7 @@ mvn -version
 
 Versiones esperadas:
 - Java 21
-- Maven
+- Maven 3.9.x
 
 Validar build y tests:
 
