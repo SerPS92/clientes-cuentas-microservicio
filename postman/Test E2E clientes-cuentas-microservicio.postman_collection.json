@@ -1,0 +1,402 @@
+{
+  "info": {
+    "_postman_id": "983d0e8e-d343-4166-8a8a-c9e778687a4f",
+    "name": "Test E2E clientes-cuentas-microservicio",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33138567"
+  },
+  "item": [
+    {
+      "name": "OpenApi JSON",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v3/api-docs",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v3",
+            "api-docs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener Clientes paginados",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes?page=0&size=10&sort=dni,asc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            },
+            {
+              "key": "sort",
+              "value": "dni,asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener clientes mayores de edad",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes/mayores-de-edad?page=0&size=10&sort=dni,asc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes",
+            "mayores-de-edad"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            },
+            {
+              "key": "sort",
+              "value": "dni,asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener clientes con cuenta superior a cantidad",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes/con-cuenta-superior-a/50000?page=0&size=10&sort=dni,asc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes",
+            "con-cuenta-superior-a",
+            "50000"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            },
+            {
+              "key": "sort",
+              "value": "dni,asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener cliente por DNI",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes/11111111A",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes",
+            "11111111A"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener cliente inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes/99999999Z",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes",
+            "99999999Z"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear cuenta bancaria",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dniCliente\": \"11111111A\",\r\n  \"tipoCuenta\": \"NORMAL\",\r\n  \"total\": 50000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear cuenta con cliente inexistente",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dniCliente\": \"99999999Z\",\r\n  \"tipoCuenta\": \"NORMAL\",\r\n  \"total\": 50000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear cuenta con tipo inválido",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dniCliente\": \"11111111A\",\r\n  \"tipoCuenta\": \"INVALIDA\",\r\n  \"total\": 50000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear cuenta con total negativo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dniCliente\": \"11111111A\",\r\n  \"tipoCuenta\": \"NORMAL\",\r\n  \"total\": -10.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear cuenta sin DNI",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dniCliente\": \"\",\r\n  \"tipoCuenta\": \"NORMAL\",\r\n  \"total\": 50000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar saldo de cuenta",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"total\": 50000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar cuenta inexistente",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"total\": 180000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar saldo con total negativo",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"total\": -1.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cuentas/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cuentas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
