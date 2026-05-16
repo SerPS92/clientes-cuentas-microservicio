@@ -9,7 +9,11 @@ import java.math.BigDecimal;
 public record CuentaBancariaResponse(
         @Schema(description = "Identificador de la cuenta bancaria", example = "1")
         Long id,
-        @Schema(description = "Tipo de cuenta bancaria", example = "PREMIUM")
+        @Schema(
+                description = "Tipo de cuenta bancaria",
+                example = "PREMIUM",
+                allowableValues = {"PREMIUM", "NORMAL", "JUNIOR"}
+        )
         TipoCuenta tipoCuenta,
         @Schema(description = "Saldo total de la cuenta bancaria", example = "150000.00")
         BigDecimal total

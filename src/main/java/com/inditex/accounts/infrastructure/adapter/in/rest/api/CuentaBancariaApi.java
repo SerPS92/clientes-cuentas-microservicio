@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface CuentaBancariaApi {
 
     @PostMapping
-    @Operation(summary = "Crear cuenta bancaria", description = "Crea una nueva cuenta bancaria asociada a un cliente.")
+    @Operation(summary = "Crear cuenta bancaria", description = "Crea una nueva cuenta bancaria asociada a un cliente existente.")
     @ApiResponse(responseCode = "201", description = "Cuenta bancaria creada correctamente",
             headers = @Header(name = "Location", description = "URI de la cuenta bancaria creada"),
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CuentaBancariaResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud invalida",
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
     @ApiResponse(responseCode = "404", description = "Cliente no encontrado",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
@@ -46,7 +46,7 @@ public interface CuentaBancariaApi {
     @Operation(summary = "Actualizar saldo de cuenta bancaria", description = "Actualiza el saldo total de una cuenta bancaria existente.")
     @ApiResponse(responseCode = "200", description = "Cuenta bancaria actualizada correctamente",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CuentaBancariaResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud invalida",
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
     @ApiResponse(responseCode = "404", description = "Cuenta bancaria no encontrada",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))

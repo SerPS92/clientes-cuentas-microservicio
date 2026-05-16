@@ -14,7 +14,11 @@ public record CreateCuentaBancariaRequest(
         @Schema(description = "DNI del cliente asociado a la cuenta bancaria", example = "11111111A")
         String dniCliente,
         @NotNull
-        @Schema(description = "Tipo de cuenta bancaria", example = "NORMAL")
+        @Schema(
+                description = "Tipo de cuenta bancaria",
+                example = "NORMAL",
+                allowableValues = {"PREMIUM", "NORMAL", "JUNIOR"}
+        )
         TipoCuenta tipoCuenta,
         @NotNull
         @PositiveOrZero
